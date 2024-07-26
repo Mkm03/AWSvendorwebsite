@@ -1,0 +1,40 @@
+{% extends 'inventory/navbar.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="home-body">
+    <div class="hero-section">
+        <h1>Welcome to Our Website</h1>
+        <p>Your one-stop solution for all your needs.</p>
+    </div>
+    <div class="section-header">
+        <h2>Our Vendors</h2>
+    </div>
+    <div class="vendors-section">
+        <div class="vendor-cards">
+            {% for vendor in vendors %}
+                <a href="{% url 'vendor_detail' vendor.pk %}" class="vendor-card">
+                    <h3>{{ vendor.name }}</h3>
+                    <p>{{ vendor.website }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="section-header">
+        <h2>Our Products</h2>
+    </div>
+    <div class="products-section">
+        <div class="product-cards">
+            {% for product in products %}
+                <div class="product-card">
+                    <a href="{% url 'product_detail' product.pk %}">
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.vendor.name }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

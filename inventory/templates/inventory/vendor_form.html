@@ -1,0 +1,36 @@
+{% extends 'inventory/navbar.html' %}
+
+{% block title %}Create Vendor{% endblock %}
+
+{% block content %}
+<div class="profile-body">
+    <div class="container">
+        <h2>Create Vendor</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Name:</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="error">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.website.id_for_label }}">Website:</label>
+                {{ form.website }}
+                {% if form.website.errors %}
+                    <div class="error">{{ form.website.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description:</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="error">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn-save">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

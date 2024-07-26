@@ -1,0 +1,78 @@
+{% extends 'inventory/navbar.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-body">
+    <div class="profile-container profile-page">
+        <div class="profile-section">
+            <h2>Profile</h2>
+            <form method="post" class="profile-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ user_form.username.id_for_label }}">Username:</label>
+                    {{ user_form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ user_form.email.id_for_label }}">Email address:</label>
+                    {{ user_form.email }}
+                </div>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+
+        {% if is_vendor %}
+            <div class="vendor-section">
+                <h2>Vendor Management</h2>
+                <a href="{% url 'create_vendor' %}" class="btn btn-create">Create Vendor</a>
+                {% if vendors %}
+                    <ul class="vendor-list">
+                        {% for vendor in vendors %}
+                            <li class="vendor-item">
+                                <div class="vendor-header">
+                                    <span>{{ vendor.name }}</span>
+                                    <div class="vendor-actions">
+                                        <a href="{% url 'update_vendor' vendor.pk %}" class="btn btn-update">Update</a>
+                                        <form method="post" action="{% url 'delete_vendor' vendor.pk %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-delete">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="vendor-details">
+                                    <p><strong>Website:</strong> {{ vendor.website }}</p>
+                                    <p><strong>Description:</strong> {{ vendor.description }}</p>
+                                    <h3>Products</h3>
+                                    <ul class="product-list">
+                                        {% for product in vendor.products.all %}
+                                            <li class="product-item">
+                                                <div class="product-info">
+                                                    <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a>
+                                                </div>
+                                                <div class="product-actions">
+                                                    <a href="{% url 'update_product' product.pk %}" class="btn btn-update">Update</a>
+                                                    <form method="post" action="{% url 'delete_product' product.pk %}" style="display: inline;">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="btn btn-delete">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+        <div class="product-management">
+            <h3>Product Management</h3>
+            <a href="{% url 'create_product' %}" class="btn btn-create">Create Product</a>
+        </div>
+        {% endif %}
+
+
+    </div>
+</div>
+{% endblock %}

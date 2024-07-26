@@ -1,0 +1,23 @@
+{% extends 'inventory/navbar.html' %}
+
+{% block title %}Vendors{% endblock %}
+
+{% block content %}
+<div class="profile-body">
+    <div class="profile-container profile-page">
+        <h2>Vendors</h2>
+        <form method="get" action="{% url 'vendor_list' %}" class="search-form">
+            {{ search_form.as_p }}
+            <button type="submit" class="btn btn-search">Search</button>
+        </form>
+        <div class="vendor-cards">
+            {% for vendor in vendors %}
+                <a href="{% url 'vendor_detail' vendor.pk %}" class="vendor-card">
+                    <h3>{{ vendor.name }}</h3>
+                    <p>{{ vendor.website }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

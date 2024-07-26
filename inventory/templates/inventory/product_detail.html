@@ -1,0 +1,16 @@
+
+
+{% extends 'inventory/navbar.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="profile-body">
+    <div class="profile-container profile-page">
+        <h2>{{ product.name }}</h2>
+        <p><strong>Vendor:</strong> <a href="{% url 'vendor_detail' product.vendor.pk %}" target="_blank">{{ product.vendor.name }}</a></p>
+        <p><strong>Description:</strong>{{ product.description }}</p>
+    </div>
+</div>
+{% endblock %}
+
